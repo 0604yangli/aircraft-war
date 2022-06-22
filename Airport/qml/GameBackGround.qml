@@ -7,8 +7,8 @@ Item {
     height: 768 * 4
 
     function start() {
-        yAni.start();
-        console.log("statr");
+        backSlider.start();
+        console.log("backSlider beginning");
     }
 
 
@@ -37,7 +37,7 @@ Item {
             target: maps
             property: "y"
             to: 768 * 2
-            duration: 2000
+            duration: 20000
         }
 
     }
@@ -59,7 +59,7 @@ Item {
            triggeredOnStart: true;
            onTriggered:
            {
-              console.log("当前page:"+maps.currentIndex);
+               console.log("当前page:" + maps.currentIndex);
                console.log("maps.y = " + maps.y);
                if(maps.currentIndex ===  listModel.count-1)
                {
@@ -73,10 +73,10 @@ Item {
        }
 
 
-    Component.onCompleted: {
-               backSlider.start();
-        console.log("maps.y = " + maps.y);
-           }
+//    Component.onCompleted: {
+//               backSlider.start();
+//        console.log("maps.y = " + maps.y);
+//           }
 }
 
 

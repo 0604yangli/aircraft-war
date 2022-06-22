@@ -1,13 +1,17 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
-Rectangle{
+Button{
+    width: 512; height: 100
+    visible: true
     anchors.centerIn: parent
-    Button {
-        anchors.fill: parent
-        width: parent.width
-        height: 50
+    opacity: 0.5
+
+    Text {
+        anchors.centerIn:  parent
         text: "PLAY GAME"
-        opacity: 0.5
+        font.pixelSize: 28
+        color: "#ffff00"
     }
 }
+
