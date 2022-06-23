@@ -1,12 +1,6 @@
 # allows to add DEPLOYMENTFOLDERS and links to the Felgo library and QtCreator auto-completion
 CONFIG += felgo
 
-
-#CONFIG += qmltypes
-#QML_IMPORT_NAME = PlaneImage
-INCLUDEPATH += Image
-#QML_IMPORT_MAJOR_VERSION = 1
-
 # uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 # for the remaining steps to build a custom Live Code Reload app see here: https://felgo.com/custom-code-reload-app/
 # CONFIG += felgo-live
@@ -44,8 +38,7 @@ DEPLOYMENTFOLDERS += assetsFolder
 
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp \
-    imageextension.cpp
+SOURCES += main.cpp
 
 
 android {
@@ -69,49 +62,51 @@ macx {
 RESOURCES +=
 
 DISTFILES += \
+    airport-picture/app.ico \
+    airport-picture/bg.wav \
+    airport-picture/bomb-1.png \
+    airport-picture/bomb-2.png \
+    airport-picture/bomb-3.png \
+    airport-picture/bomb-4.png \
+    airport-picture/bomb-5.png \
+    airport-picture/bomb-6.png \
+    airport-picture/bomb-7.png \
+    airport-picture/bomb.wav \
+    airport-picture/bullet_1.png \
+    airport-picture/bullet_10.png \
+    airport-picture/bullet_11.png \
+    airport-picture/bullet_12.png \
+    airport-picture/bullet_13.png \
+    airport-picture/bullet_14.png \
+    airport-picture/bullet_2.png \
+    airport-picture/bullet_3.png \
+    airport-picture/bullet_4.png \
+    airport-picture/bullet_5.png \
+    airport-picture/bullet_6.png \
+    airport-picture/bullet_7.png \
+    airport-picture/bullet_8.png \
+    airport-picture/bullet_9.png \
+    airport-picture/game.ico \
+    airport-picture/hero.png \
+    airport-picture/hero2.png \
+    airport-picture/hero_bullet_7.png \
+    airport-picture/img-plane_1.png \
+    airport-picture/img-plane_2.png \
+    airport-picture/img-plane_3.png \
+    airport-picture/img-plane_4.png \
+    airport-picture/img-plane_5.png \
+    airport-picture/img-plane_6.png \
+    airport-picture/img-plane_7.png \
+    airport-picture/img_bg_level_1.jpg \
+    airport-picture/img_bg_level_2.jpg \
+    airport-picture/img_bg_level_3.jpg \
+    airport-picture/img_bg_level_4.jpg \
+    airport-picture/img_bg_level_5.jpg \
+    qml/Actions.qml \
+    qml/Buttons.qml \
     qml/GameBackGround.qml \
-    qml/PlayGame.qml \
-    飞机大战素材/app.ico \
-    飞机大战素材/bg.wav \
-    飞机大战素材/bomb-1.png \
-    飞机大战素材/bomb-2.png \
-    飞机大战素材/bomb-3.png \
-    飞机大战素材/bomb-4.png \
-    飞机大战素材/bomb-5.png \
-    飞机大战素材/bomb-6.png \
-    飞机大战素材/bomb-7.png \
-    飞机大战素材/bomb.wav \
-    飞机大战素材/bullet_1.png \
-    飞机大战素材/bullet_10.png \
-    飞机大战素材/bullet_11.png \
-    飞机大战素材/bullet_12.png \
-    飞机大战素材/bullet_13.png \
-    飞机大战素材/bullet_14.png \
-    飞机大战素材/bullet_2.png \
-    飞机大战素材/bullet_3.png \
-    飞机大战素材/bullet_4.png \
-    飞机大战素材/bullet_5.png \
-    飞机大战素材/bullet_6.png \
-    飞机大战素材/bullet_7.png \
-    飞机大战素材/bullet_8.png \
-    飞机大战素材/bullet_9.png \
-    飞机大战素材/game.ico \
-    飞机大战素材/hero.png \
-    飞机大战素材/hero2.png \
-    飞机大战素材/hero_bullet_7.png \
-    飞机大战素材/img-plane_1.png \
-    飞机大战素材/img-plane_2.png \
-    飞机大战素材/img-plane_3.png \
-    飞机大战素材/img-plane_4.png \
-    飞机大战素材/img-plane_5.png \
-    飞机大战素材/img-plane_6.png \
-    飞机大战素材/img-plane_7.png \
-    飞机大战素材/img_bg_level_1.jpg \
-    飞机大战素材/img_bg_level_2.jpg \
-    飞机大战素材/img_bg_level_3.jpg \
-    飞机大战素材/img_bg_level_4.jpg \
-    飞机大战素材/img_bg_level_5.jpg
+    qml/Planes.qml \
 
-HEADERS += \
-    imageextension.h
+
+HEADERS +=
 

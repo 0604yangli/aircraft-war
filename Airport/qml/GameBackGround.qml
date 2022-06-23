@@ -1,43 +1,50 @@
+/***************************************
+
+    name:           yangli
+    student ID:     2020051615074
+    effort:         GmaeBackGround.qml
+    time:           2022-06-23
+
+****************************************/
+
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
 Item {
     id: name
-    height: 768 * 4
+    height: 768
 
     function start() {
         backSlider.start();
+//        myTimer.start();
         console.log("backSlider beginning");
     }
 
-
     ListView{
         id: maps
-        height: 768
-
+        height: parent.height * 11
+        y: -768 * 10
+        width: 640
         // 倒排视图
         verticalLayoutDirection: ListView.VerticalBottomToTop
-        model: ListModel{
-            id:listModel
-            ListElement{ sour: "../飞机大战素材/img_bg_level_1.jpg" }
-            ListElement{ sour: "../飞机大战素材/img_bg_level_2.jpg" }
 
-        }
+        model: 12
         delegate: Component {
             id: ima
             Image {
                 id: backimage
-                source: sour
+                source: "../airport-picture/img_bg_level_1.jpg"
             }
         }
 
+        // background slider animation
         NumberAnimation{
             id: backSlider
             target: maps
             property: "y"
-            to: 768 * 2
-            duration: 20000
+            to: 768
+            duration: 100000  // 100s
         }
 
     }
@@ -51,26 +58,6 @@ Item {
 //                   }
 //    }
 
-    Timer {
-           id: myTimer;
-           interval: 2000;
-           repeat: true;
-           running: true;
-           triggeredOnStart: true;
-           onTriggered:
-           {
-               console.log("当前page:" + maps.currentIndex);
-               console.log("maps.y = " + maps.y);
-               if(maps.currentIndex ===  listModel.count-1)
-               {
-                   listModel.move(maps.currentIndex,0,1);
-                   maps.currentIndex = 1;
-                   backSlider.start();
-
-               }
-//              aotoCycle();
-           }
-       }
 
 
 //    Component.onCompleted: {
