@@ -102,10 +102,16 @@ DISTFILES += \
     airport-picture/img_bg_level_3.jpg \
     airport-picture/img_bg_level_4.jpg \
     airport-picture/img_bg_level_5.jpg \
+    airport-picture/卡通软糖字体.ttf \
     qml/Actions.qml \
+    qml/Bullets.qml \
     qml/Buttons.qml \
+    qml/Content.qml \
     qml/GameBackGround.qml \
-    qml/Planes.qml \
+    qml/GameName.qml \
+    qml/Labels.qml \
+    qml/Planes.qml \ \
+    qml/Timers.qml
 
 
 HEADERS +=

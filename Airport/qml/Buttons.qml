@@ -14,41 +14,80 @@ import QtQuick.Layouts 1.0
 
 Item{
     property alias playButton: play
+    property alias practiceButton: practice
     property alias rankButton: rank
-    property alias setButton: set
+    property alias aboutButton: about
+    property alias audioButton: audio
 
-    width: 150; height: 300
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.bottom:  parent.bottom
+    anchors.fill: parent
 
     Column{
-        anchors.fill: parent
-        spacing: 10
+        width: 200; height: 350; y: 360
+        spacing: 15
         opacity: 0.7
-        // Start play button
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        // Pass mode button
         GameButton{
             id: play
-            width: 150; height: 60
-            text: qsTr("PLAY GAME")
+            width: parent.width; height: 80
+            Text{
+                text: qsTr("PASS MODE")
+                anchors.centerIn: parent
+                color: "white"
+                font.pixelSize: 18
+            }
+        }
+
+        // Practice mode button
+        GameButton{
+            id: practice
+            width: parent.width; height: 80
+            Text{
+                text: qsTr("PRACTICE MODE")
+                anchors.centerIn: parent
+                color: "white"
+                font.pixelSize: 18
+            }
         }
 
         // Rank list button
         GameButton{
             id: rank
-            width: 150; height: 60
-            text: qsTr("RANK LIST")
+            width: parent.width; height: 80
+            Text{
+                text: qsTr("RANK LIST")
+                anchors.centerIn: parent
+                color: "white"
+                font.pixelSize: 18
+            }
         }
 
-        // Set button
+        // About button
         GameButton{
-            id: set
-            width: 150; height: 60
-            text: qsTr("SETTING")
+            id: about
+            width: parent.width; height: 80
+//            text: qsTr("ABOUT GAME")
+
+//            GameStyle{
+//                buttonTextColor: "red"
+
+//            }
+
+            Text{
+                text: qsTr("ABOUT GAME")
+                anchors.centerIn: parent
+                color: "white"
+                font.pixelSize: 18
+            }
         }
-        GameSwitch {
-          onCheckedChanged: {
+    }
+    GameSwitch {
+        id: audio
+        y:6
+        anchors.right: parent.right
+        onCheckedChanged: {
             // .. enter code using the checked value here ..
-          }
         }
     }
 }

@@ -12,20 +12,20 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
 Item {
-    id: name
-    height: 768
+    height: parent.height
+    width: parent.width
 
     function start() {
         backSlider.start();
-//        myTimer.start();
         console.log("backSlider beginning");
     }
 
     ListView{
         id: maps
+        width: parent.width
         height: parent.height * 11
         y: -768 * 10
-        width: 640
+
         // 倒排视图
         verticalLayoutDirection: ListView.VerticalBottomToTop
 
@@ -48,22 +48,6 @@ Item {
         }
 
     }
-//    RadioButton {
-//        text: "start"
-//        anchors.top: parent
-//        opacity: 0.7
-//        onClicked: ()=>{
-//                       console.log("click")
-//                       backSlider.start();
-//                   }
-//    }
-
-
-
-//    Component.onCompleted: {
-//               backSlider.start();
-//        console.log("maps.y = " + maps.y);
-//           }
 }
 
 
