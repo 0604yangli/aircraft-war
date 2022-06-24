@@ -44,7 +44,7 @@ Item {
             target: maps
             property: "y"
             to: 768
-            duration: 100000  // 100s
+            duration: 120000  // 120s
         }
 
     }

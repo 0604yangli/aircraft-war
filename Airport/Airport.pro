@@ -110,7 +110,8 @@ DISTFILES += \
     qml/GameBackGround.qml \
     qml/GameName.qml \
     qml/Labels.qml \
-    qml/Planes.qml \ \
+    \ \
+    qml/Planes.qml \
     qml/Timers.qml
 
 
