@@ -103,15 +103,15 @@ DISTFILES += \
     airport-picture/img_bg_level_4.jpg \
     airport-picture/img_bg_level_5.jpg \
     airport-picture/卡通软糖字体.ttf \
-    qml/Actions.qml \
-    qml/Bullets.qml \
+    qml/Bullet.qml \
     qml/Buttons.qml \
     qml/Content.qml \
     qml/GameBackGround.qml \
     qml/GameName.qml \
     qml/Labels.qml \
     \ \
-    qml/Planes.qml \
+    qml/Level.qml \
+    qml/Plane.qml \
     qml/Timers.qml
 
 

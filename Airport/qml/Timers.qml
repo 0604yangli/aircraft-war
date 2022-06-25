@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     property alias timer_1: timer_1
-    property alias timerplane1: timerplane1
+    property alias plane_enemy1: plane_enemy1
     property alias timerplane2: timerplane2
     property alias timerplane3: timerplane3
     property alias timerplane4: timerplane4
@@ -21,11 +21,11 @@ Item {
     // enemyPlane1 creating
     Timer
     {
-        id:timerplane1
+        id:plane_enemy1
         interval: 20000
         repeat: true
         running: false
-        triggeredOnStart: false
+        triggeredOnStart: true
     }
 
     // enemyPlane2 creating
