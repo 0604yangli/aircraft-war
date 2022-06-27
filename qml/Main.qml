@@ -1,11 +1,4 @@
-/***************************************
 
-    name:       yangli
-    student ID: 2020051615074
-    effort:     Main.qml
-    time:       2022-06-23
-
-****************************************/
 
 import Felgo 3.0
 import QtQuick 2.0
@@ -76,6 +69,8 @@ GameWindow {
             playButton.onClicked: {
                 console.log("clicked the play button");
 
+
+                level.plane_hero2.autofair_start()
                 // game start timing
                 timers.timer_1.start();
                 timers.plane_enemy1.start();
@@ -106,6 +101,12 @@ GameWindow {
             // this gets accessed by its id from JoystickControllerHUD below
             id: level
 
+<<<<<<< Updated upstream:qml/Main.qml
+=======
+        PlaneEnemy1{
+            id: planeEnemy1
+            visible: false
+>>>>>>> Stashed changes:Airport/qml/Main.qml
         }
 
         focus: true

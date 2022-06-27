@@ -13,9 +13,38 @@ EntityBase {
 
 
   property alias image: image
+  property alias movementAnimation: ma.acceleration
   property real angleDeg
 
   rotation: angleDeg
+MovementAnimation {
+    id:ma
+    target: entity
+    property: "y"
+    running: true
+
+    // the starting velocity
+    velocity: 10
+
+    // this forces the rectangle to move to the left (against the velocity direction), but it doesnt get faster than -20 px/second!
+    acceleration: 50
+
+    minVelocity: 100
+    // limits the initial velocity set to 960, now to 500
+    maxVelocity: 5000
+
+    // limits the x property between a border of 10 and 100
+//            minPropertyValue: 10
+//            maxPropertyValue: 1000
+
+    // never change the x value by more than 50 pixels in one step
+    // this is useful for example to limit the rotation from MoveToPointHelper
+    maxPropertyValueDifference: 500
+
+
+    // this is the same as setting running to true, only for demonstration purpose
+    //Component.onCompleted: movement.start()
+  }
 
   BoxCollider {
     id: boxCollider
@@ -43,6 +72,10 @@ EntityBase {
 
       // get the entityType of the colliding entity
       var collidingType = otherEntity.entityType
+      if(entity.y<0){
+          entity.removeEntity();
+          return;
+      }
 
       if(collidingType === "plane" ||
               collidingType === "bullet") {
@@ -72,6 +105,7 @@ EntityBase {
       applyForwardImpulse();
     }
   }
+
 
   Image {
     id: image

@@ -1,11 +1,5 @@
-/***************************************
 
-    name:           yangli
-    student ID:     2020051615074
-    effort:         GmaeBackGround.qml
-    time:           2022-06-23
 
-****************************************/
 
 import QtQuick 2.0
 import QtQuick.Controls 2.0

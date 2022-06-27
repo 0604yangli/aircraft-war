@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:qml/Content.qml
 ///***************************************
 
 //    name:       yangli
@@ -233,3 +234,5 @@
 
 
 
+=======
+>>>>>>> Stashed changes:Airport/qml/Content.qml

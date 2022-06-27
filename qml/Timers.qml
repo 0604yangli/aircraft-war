@@ -3,8 +3,8 @@ import QtQuick 2.0
 Item {
     property alias timer_1: timer_1
     property alias plane_enemy1: plane_enemy1
-    property alias timerplane2: timerplane2
-    property alias timerplane3: timerplane3
+    property alias timerplane2: plane_fair1
+    property alias timerplane3: plane_fair2
     property alias timerplane4: timerplane4
     property alias timerplane5: timerplane5
 
@@ -31,17 +31,19 @@ Item {
     // enemyPlane2 creating
     Timer
     {
-        id:timerplane2
+        id:plane_fair1
         interval: 20000
         repeat: true
         running: false
         triggeredOnStart: false
+        onTriggered:{  entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane_hero2.rotation})
+            }
     }
 
     // enemyPlane3 creating
     Timer
     {
-        id:timerplane3
+        id:plane_fair2
         interval: 20000
         repeat: true
         running: false
