@@ -34,7 +34,7 @@ GameWindow {
     //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
     //licenseKey: "<generate one from https://felgo.com/licenseKey>"
 
-    // for creating and destroying entities at runtime (rockets)
+    // for creating and destroying entities at runtime (bullets)
     EntityManager {
         id: entityManager
         entityContainer: level
@@ -103,13 +103,11 @@ GameWindow {
         }
 
         Level {
-            // this gets accessed by its id from JoystickControllerHUD below
             id: level
-
         }
 
         focus: true
-        // forward the input keys to both players
+        // forward the input keys to plane_hero
         Keys.forwardTo: [level.plane_hero2.controller]
     }
 
@@ -117,7 +115,6 @@ GameWindow {
 
     function createEnemy1(){
         level.plane_enemy1.x = Math.random()* 460;
-        level.plane_enemy1.rotation = 0;
         level.plane_enemy1.visible = true;
         level.plane_enemy1going.start();
         console.log("plane_enemy1 creating. plane_enemy1.x = " + level.plane_enemy1.x);
@@ -129,7 +126,7 @@ GameWindow {
         timer_1.onTriggered: {
             labels.time += 1;
             if(labels.time % 2 === 0)
-                level.plane_enemy1.autoBullet();
+//                level.plane_enemy1.autoBullet();
 
             if (labels.time === 120){
                 timer_1.stop();
@@ -149,10 +146,10 @@ GameWindow {
         // initial state
         State{
             name: "initial"
-            PropertyChanges { target: labels;           visible: false}
-            PropertyChanges { target: gamename;         visible: true }
+            PropertyChanges { target: labels;            visible: false}
+            PropertyChanges { target: gamename;          visible: true }
             PropertyChanges { target: level.plane_hero2; visible: false}
-            PropertyChanges { target: buttons;          visible: true }
+            PropertyChanges { target: buttons;           visible: true }
         },
 
         // play game begin

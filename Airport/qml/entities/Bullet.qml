@@ -11,7 +11,6 @@ EntityBase {
       applyForwardImpulse();
   }
 
-
   property alias image: image
   property real angleDeg
 
@@ -44,16 +43,17 @@ EntityBase {
       // get the entityType of the colliding entity
       var collidingType = otherEntity.entityType
 
-      if(collidingType === "plane" ||
-              collidingType === "bullet") {
-          entity.removeEntity()
-          return
+      if(collidingType === "plane" || collidingType === "bullet") {
+          boomanimation.start();
+          entity.removeEntity();
+          return;
       }
 
       //can't hit the same wall twice, but onBeginContact called again after rotation has changed
       if(otherEntity === lastWall) {
         return;
       }
+
       lastWall = otherEntity
 
       //apply law of reflection, all calculations in degrees
@@ -75,7 +75,7 @@ EntityBase {
 
   Image {
     id: image
-    source: "../airport-picture/bullet_1.png"
+    source: "../../assets/img/bullet_3.png"
     anchors.centerIn: parent
     width: boxCollider.width
     height: boxCollider.height
@@ -88,5 +88,19 @@ EntityBase {
     //can't use body.toWorldVector() because the rotation is not instantly
     var localForward = Qt.point(power * Math.cos(rad), power * Math.sin(rad))
     boxCollider.body.applyLinearImpulse(localForward, boxCollider.body.getWorldCenter())
+  }
+
+  Image {
+      id: boom
+      source: "../../assets/img/bomb-1.png"
+      visible: false
+  }
+
+  PropertyAnimation{
+      id: boomanimation
+      target: boom
+      property: "source"
+      to: "../../assets/img/bomb-2.png"
+      duration: 3000
   }
 }
