@@ -1,11 +1,11 @@
-/***************************************
+/*****************************************************************
 
-    name:           yangli
-    student ID:     2020051615074
+    name:           yangli        zhuyuhao      qinhaiguo
+    student ID:     2020051615074 2020051615059 2020051615089
     effort:         Planes.qml
-    time:           2022-06-23
+    time:           2022-06-27
 
-****************************************/
+******************************************************************/
 import QtQuick 2.0
 import Felgo 3.0
 
@@ -41,36 +41,31 @@ EntityBase {
         height: boxCollider.height
 
         MovementAnimation {
-          target: image
-          property: "y"
-          running: true
+            target: plane
+            property: "y"
+            running: true
 
-          // the starting velocity
-          velocity: 1
+            // the starting velocity
+            velocity: 10
 
-          // this forces the rectangle to move to the left (against the velocity direction), but it doesnt get faster than -20 px/second!
-          acceleration: 20
+//            // this forces the rectangle to move to the left (against the velocity direction), but it doesnt get faster than -20 px/second!
+            acceleration: 40
 
-          minVelocity: -200
-          // limits the initial velocity set to 960, now to 500
-          maxVelocity: 500
+            minVelocity: -200
+            // limits the initial velocity set to 960, now to 500
+            maxVelocity: 500
 
-          // limits the x property between a border of 10 and 100
-    //            minPropertyValue: 10
-    //            maxPropertyValue: 1000
+            // limits the x property between a border of 10 and 100
+            //            minPropertyValue: 10
+            //            maxPropertyValue: 1000
 
-          // never change the x value by more than 50 pixels in one step
-          // this is useful for example to limit the rotation from MoveToPointHelper
-          maxPropertyValueDifference: 50
+            // never change the x value by more than 50 pixels in one step
+            // this is useful for example to limit the rotation from MoveToPointHelper
+            maxPropertyValueDifference: 50
 
-
-          // this is the same as setting running to true, only for demonstration purpose
-          //Component.onCompleted: movement.start()
         }
 
-
     }
-
 
     // this is used as input for the BoxCollider force & torque properties
     TwoAxisController {
@@ -96,20 +91,17 @@ EntityBase {
         body.linearDamping: 5
         body.angularDamping: 15
 
-
         // do not change rotation
         body.fixedRotation: true
 
         // this is applied every physics update tick
         force: Qt.point(twoAxisController.yAxis*forwardForce, twoAxisController.xAxis*forwardForce)
 
-
         Component.onCompleted: {
             console.debug("planeEnemy.physics.x:", x)
             var mapped = mapToItem(world.debugDraw, x, y)
             console.debug("planeEnemy.physics.x world:", mapped.x)
         }
-
 
         property int boomflag: 0
         fixture.onBeginContact: {
@@ -134,23 +126,21 @@ EntityBase {
 
         }
     }
+    Timer {
+        id: bulletshoot
+        interval: 2000 // milliseconds
+        repeat: true
+        running: true
+        triggeredOnStart: false
+        onTriggered: {
 
-    function handleInputAction(action) {
-        if( action === "fire") {
-            // x&y of this component are 0..
-            console.debug("creating planeEnemy at current position x", plane.x, "y", plane.y)
-            console.debug("image.imagePoints[0].x:", image.imagePoints[0].x, ", image.imagePoints[0].y:", image.imagePoints[0].y)
-
-            // this is the point that we defined in Plane.qml for the bullet to spawn
-            var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
-
-            console.debug("image.imagePoints[0] = " + image.imagePoints[0]);
-            console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
-
-            // create the bullet at the specified position with the rotation of the plane that fires it
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane_hero2.rotation})
-
+            plane.autoFire();
+            // if the maximum number of balloons is reached, we stop the timer and therefore the balloon creation
+            console.log("shoot");
         }
     }
-
+    function autoFire() {
+        // create the bullet at the specified position with the rotation of the plane that fires it
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet.qml"), {"x": plane_enemy1.x, "y": plane_enemy1.y, "rotation": plane_enemy1.rotation + 90, "visible" : true})
+    }
 }

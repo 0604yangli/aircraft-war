@@ -1,11 +1,11 @@
-/***************************************
+/*****************************************************************
 
-    name:           yangli
-    student ID:     2020051615074
+    name:           yangli        zhuyuhao      qinhaiguo
+    student ID:     2020051615074 2020051615059 2020051615089
     effort:         Planes.qml
-    time:           2022-06-23
+    time:           2022-06-27
 
-****************************************/
+******************************************************************/
 import QtQuick 2.0
 import Felgo 3.0
 
@@ -46,7 +46,6 @@ EntityBase {
 
     }
 
-
     // this is used as input for the BoxCollider force & torque properties
     TwoAxisController {
         id: twoAxisController
@@ -64,8 +63,8 @@ EntityBase {
 
         anchors.centerIn: parent
 
-        density: 0.008
-        friction: 0.5
+        density: 0.004
+        friction: 0.3
         restitution: 0.5
         body.bullet: true
         body.linearDamping: 5
@@ -125,8 +124,6 @@ EntityBase {
 
             // create the bullet at the specified position with the rotation of the plane that fires it
             entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane_hero2.rotation})
-
         }
     }
-
 }

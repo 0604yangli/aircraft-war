@@ -10,9 +10,10 @@ Item{
 
     RowLayout{
         anchors.centerIn: parent
+        spacing: 5
         Image{
             id: titleIcon
-            source: "../airport-picture/hero2.png"
+            source: "../../assets/img/hero2.png"
         }
 
         Text{

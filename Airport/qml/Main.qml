@@ -106,34 +106,14 @@ GameWindow {
 
     state: "initial"
 
-//    function createEnemy1(){
-//        level.plane_enemy1.x = Math.random()* 460;
-//        level.plane_enemy1.visible = true;
-//        level.plane_enemy1going.start();
-//        console.log("plane_enemy1 creating. plane_enemy1.x = " + level.plane_enemy1.x);
-//    }
 
     Timers{
         id: timers
 
         timer_1.onTriggered: {
             labels.time += 1;
-            if(labels.time % 2 === 0)
-//                level.plane_enemy1.autoBullet();
-
             if (labels.time === 120){
                 timer_1.stop();
-            }
-        }
-
-        plane_enemy1.onTriggered: {
-            planeEnemy1.reset();
-            planeEnemy1.start();
-
-
-//            createEnemy1();
-            if (labels.time === 120){
-                plane_enemy1.stop();
             }
         }
     }
@@ -156,6 +136,11 @@ GameWindow {
                 target: level.plane_hero2
                 visible: true
                 focus: true
+            }
+            PropertyChanges {
+                target: planeEnemy1
+                visible: false
+
             }
             PropertyChanges { target: labels;                   visible: true }
             PropertyChanges { target: gamename;                 visible: false}

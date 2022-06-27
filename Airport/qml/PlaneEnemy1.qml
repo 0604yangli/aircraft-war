@@ -11,20 +11,9 @@ PlaneEnemy {
     id: plane_enemy1
     objectName: "plane_enemy1"
 
-
-//    NumberAnimation{
-//        id: plane_enemy1going
-//        target: plane_enemy1
-//        property: "y"
-//        from: -30
-//        to: 850
-//        duration: 10000  // 10s
-//    }
-
     // starts the game
     function start() {
         spawnPlane_enemy1.start();
-//        plane_enemy1going.start();
     }
 
     // clear all plane_enemy1s and reset properties to start values
@@ -33,20 +22,21 @@ PlaneEnemy {
         plane_enemy1s = 0
     }
 
-    // create balloons with short intervals in between, creating a nice animation at the start
+    // create plane_enemy1
     Timer {
         id: spawnPlane_enemy1
-        interval: 1000 // milliseconds
+        interval: 2000 // milliseconds
         repeat: true
+        triggeredOnStart: false
         onTriggered: {
-            // after every 20ms we create a new plane
+            // after every 2s we create a new plane
             entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/PlaneEnemy.qml"));
             plane_enemy1s++;
+//            autoFire();
 
-//            plane_enemy1going.start();
             // if the maximum number of balloons is reached, we stop the timer and therefore the balloon creation
             if(plane_enemy1s === plane_enemy1sMax) {
-                running = false
+                stop();
             }
         }
     }

@@ -3,7 +3,7 @@
     name:           yangli
     student ID:     2020051615074
     effort:         GmaeBackGround.qml
-    time:           2022-06-23
+    time:           2022-06-27
 
 ****************************************/
 
@@ -15,6 +15,7 @@ Item {
     height: parent.height
     width: parent.width
 
+    // backSlider beginning
     function start() {
         backSlider.start();
         console.log("backSlider beginning");
@@ -34,7 +35,7 @@ Item {
             id: ima
             Image {
                 id: backimage
-                source: "../../assets/img/img_bg_level_1.jpg"
+                source: "../../assets/img/img_bg_level_5.jpg"
             }
         }
 

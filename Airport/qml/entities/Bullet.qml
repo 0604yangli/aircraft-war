@@ -1,5 +1,13 @@
-import QtQuick 2.0
+/*****************************************************************
 
+    name:           yangli        zhuyuhao      qinhaiguo
+    student ID:     2020051615074 2020051615059 2020051615089
+    effort:         Planes.qml
+    time:           2022-06-27
+
+******************************************************************/
+
+import QtQuick 2.0
 import Felgo 3.0
 
 EntityBase {
@@ -75,7 +83,7 @@ EntityBase {
 
   Image {
     id: image
-    source: "../../assets/img/bullet_3.png"
+    source: "../../assets/img/bullet_4.png"
     anchors.centerIn: parent
     width: boxCollider.width
     height: boxCollider.height
