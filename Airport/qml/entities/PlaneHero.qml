@@ -23,10 +23,10 @@ EntityBase {
     readonly property real forwardForce: 1000 * world.pixelsPerMeter
 
     Component.onCompleted: {
-        console.debug("car.onCompleted()")
-        console.debug("car.x:", x)
+        console.debug("planeHero.onCompleted()")
+        console.debug("planeHero.x:", x)
         var mapped = mapToItem(world.debugDraw, x, y)
-        console.debug("car.x world:", mapped.x)
+        console.debug("planeHero.x world:", mapped.x)
     }
 
     Image {
@@ -46,6 +46,7 @@ EntityBase {
 
     }
 
+
     // this is used as input for the BoxCollider force & torque properties
     TwoAxisController {
         id: twoAxisController
@@ -58,8 +59,8 @@ EntityBase {
         id: boxCollider
 
         // the image and the physics will use this size; this is important as it specifies the mass of the body! it is in respect to the world size
-        width: 80
-        height: 80
+        width: 60
+        height: 100
 
         anchors.centerIn: parent
 
@@ -79,9 +80,9 @@ EntityBase {
 
 
         Component.onCompleted: {
-            console.debug("car.physics.x:", x)
+            console.debug("planeHero.physics.x:", x)
             var mapped = mapToItem(world.debugDraw, x, y)
-            console.debug("car.physics.x world:", mapped.x)
+            console.debug("planeHero.physics.x world:", mapped.x)
         }
 
 
@@ -102,10 +103,10 @@ EntityBase {
                 return
             }
             //var
-            console.debug("car contact with: ", other, body, component)
-            console.debug("car collided entity type:", collidingType)
+            console.debug("planeHero contact with: ", other, body, component)
+            console.debug("planeHero collided entity type:", collidingType)
 
-            console.debug("car contactNormal:", contactNormal, "x:", contactNormal.x, "y:", contactNormal.y)
+            console.debug("planeHero contactNormal:", contactNormal, "x:", contactNormal.x, "y:", contactNormal.y)
 
         }
     }
@@ -113,7 +114,7 @@ EntityBase {
     function handleInputAction(action) {
         if( action === "fire") {
             // x&y of this component are 0..
-            console.debug("creating weapon at current position x", plane.x, "y", plane.y)
+            console.debug("creating planeHero at current position x", plane.x, "y", plane.y)
             console.debug("image.imagePoints[0].x:", image.imagePoints[0].x, ", image.imagePoints[0].y:", image.imagePoints[0].y)
 
             // this is the point that we defined in Plane.qml for the bullet to spawn
@@ -127,109 +128,5 @@ EntityBase {
 
         }
     }
+
 }
-
-//Item {
-//    property alias heroPlane: heroPlane
-//    property alias enemyPlane1: enemyPlane1
-//    property alias enemyPlane1Go: enemyPlane1Go
-
-//    property alias enemyPlane2: enemyPlane2
-//    property alias enemyPlane2Go: enemyPlane2Go
-
-//    property alias enemyPlane3: enemyPlane3
-//    property alias enemyPlane3Go: enemyPlane3Go
-
-//    property alias enemyPlane4: enemyPlane4
-//    property alias enemyPlane4Go: enemyPlane4Go
-
-//    property alias enemyPlane5: enemyPlane5
-//    property alias enemyPlane5Go: enemyPlane5Go
-
-//    width: parent.width; height: parent.height
-
-//    Image{
-//        id: heroPlane
-//        visible: false;
-//        source: "../airport-picture/hero.png"
-
-//        // initial coordinates
-//        x: 220 ; y: 650
-
-//        Keys.onUpPressed:  y -= 20
-//        Keys.onDownPressed: y += 20
-//        Keys.onLeftPressed: x -= 20
-//        Keys.onRightPressed: x += 20
-//    }
-
-//    Image{
-//        id: enemyPlane1
-//        visible: false;
-//        source: "../airport-picture/img-plane_1.png"
-//    }
-//    NumberAnimation{
-//        id: enemyPlane1Go
-//        target: enemyPlane1
-//        property: "y"
-//        from: -30
-//        to: 768
-//        duration: 10000  // 10s
-//    }
-
-//    Image{
-//        id: enemyPlane2
-//        visible: false;
-//        source: "../airport-picture/img-plane_2.png"
-//    }
-//    NumberAnimation{
-//        id: enemyPlane2Go
-//        target: enemyPlane2
-//        property: "y"
-//        from: -30
-//        to: 768
-//        duration: 10000  // 10s
-//    }
-
-//    Image{
-//        id: enemyPlane3
-//        visible: false;
-//        source: "../airport-picture/img-plane_3.png"
-//    }
-//    NumberAnimation{
-//        id: enemyPlane3Go
-//        target: enemyPlane3
-//        property: "y"
-//        from: -30
-//        to: 768
-//        duration: 10000  // 10s
-//    }
-
-//    Image{
-//        id: enemyPlane4
-//        visible: false;
-//        source: "../airport-picture/img-plane_4.png"
-//    }
-//    NumberAnimation{
-//        id: enemyPlane4Go
-//        target: enemyPlane4
-//        property: "y"
-//        from: -30
-//        to: 768
-//        duration: 10000  // 10s
-//    }
-
-//    Image{
-//        id: enemyPlane5
-//        visible: false;
-//        source: "../airport-picture/img-plane_5.png"
-//    }
-//    NumberAnimation{
-//        id: enemyPlane5Go
-//        target: enemyPlane5
-//        property: "y"
-//        from: -30
-//        to: 768
-//        duration: 10000  // 10s
-//    }
-
-//}

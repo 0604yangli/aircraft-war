@@ -9,17 +9,8 @@
 
 import Felgo 3.0
 import QtQuick 2.0
+import "parts"
 
-//GameWindow{
-//    id: gameWindow
-//    screenWidth: 512
-//    screenHeight: 768
-//    Content{
-//        id: gameframe
-//        width: parent.width
-//        height: parent.height
-//    }
-//}
 GameWindow {
     id: window
     screenWidth: 512
@@ -47,10 +38,8 @@ GameWindow {
 
 
         // background image
-        GameBackGround {
+        GameBackground {
             id: gamebackground
-
-//            anchors.centerIn: parent
         }
 
         // use a physics world because we need collision detection
@@ -60,13 +49,12 @@ GameWindow {
         }
 
 
-        GameName{
+        GameTitle{
             id: gamename
         }
 
         Labels{
             id: labels
-
         }
 
         Buttons {
@@ -78,7 +66,8 @@ GameWindow {
 
                 // game start timing
                 timers.timer_1.start();
-                timers.plane_enemy1.start();
+//                timers.plane_enemy1.start();
+                planeEnemy1.start();
 
                 // background start slidering
                 gamebackground.start();
@@ -106,6 +95,10 @@ GameWindow {
             id: level
         }
 
+        PlaneEnemy1{
+            id: planeEnemy1
+        }
+
         focus: true
         // forward the input keys to plane_hero
         Keys.forwardTo: [level.plane_hero2.controller]
@@ -113,12 +106,12 @@ GameWindow {
 
     state: "initial"
 
-    function createEnemy1(){
-        level.plane_enemy1.x = Math.random()* 460;
-        level.plane_enemy1.visible = true;
-        level.plane_enemy1going.start();
-        console.log("plane_enemy1 creating. plane_enemy1.x = " + level.plane_enemy1.x);
-    }
+//    function createEnemy1(){
+//        level.plane_enemy1.x = Math.random()* 460;
+//        level.plane_enemy1.visible = true;
+//        level.plane_enemy1going.start();
+//        console.log("plane_enemy1 creating. plane_enemy1.x = " + level.plane_enemy1.x);
+//    }
 
     Timers{
         id: timers
@@ -134,7 +127,11 @@ GameWindow {
         }
 
         plane_enemy1.onTriggered: {
-            createEnemy1();
+            planeEnemy1.reset();
+            planeEnemy1.start();
+
+
+//            createEnemy1();
             if (labels.time === 120){
                 plane_enemy1.stop();
             }

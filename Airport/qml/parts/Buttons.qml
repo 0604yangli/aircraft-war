@@ -67,12 +67,12 @@ Item{
         GameButton{
             id: about
             width: parent.width; height: 80
-//            text: qsTr("ABOUT GAME")
+            //            text: qsTr("ABOUT GAME")
 
-//            GameStyle{
-//                buttonTextColor: "red"
+            //            GameStyle{
+            //                buttonTextColor: "red"
 
-//            }
+            //            }
 
             Text{
                 text: qsTr("ABOUT GAME")
@@ -82,12 +82,16 @@ Item{
             }
         }
     }
-    GameSwitch {
-        id: audio
-        y:6
-        anchors.right: parent.right
-        onCheckedChanged: {
-            // .. enter code using the checked value here ..
+    BackgroundMusic{
+        source: "../../assets/wav/bg.wav"
+        autoPlay: true
+        GameSwitch {
+            id: audio
+            y:6
+            anchors.right: parent.right
+            onCheckedChanged: {
+                // .. enter code using the checked value here ..
+            }
         }
     }
 }

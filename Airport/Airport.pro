@@ -103,15 +103,17 @@ DISTFILES += \
     airport-picture/img_bg_level_4.jpg \
     airport-picture/img_bg_level_5.jpg \
     airport-picture/卡通软糖字体.ttf \
-    qml/Buttons.qml \
     qml/Content.qml \
-    qml/GameBackGround.qml \
-    qml/GameName.qml \
-    qml/Labels.qml \
     \ \
     qml/Level.qml \
+    qml/PlaneEnemy1.qml \
     qml/Timers.qml \
-    qml/entities/Bullet.qml
+    qml/entities/Bullet.qml \
+    qml/entities/PlaneEnemy.qml \
+    qml/parts/Buttons.qml \
+    qml/parts/GameBackground.qml \
+    qml/parts/GameTitle.qml \
+    qml/parts/Labels.qml
 
 
 HEADERS +=

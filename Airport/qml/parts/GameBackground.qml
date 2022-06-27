@@ -34,7 +34,7 @@ Item {
             id: ima
             Image {
                 id: backimage
-                source: "../airport-picture/img_bg_level_1.jpg"
+                source: "../../assets/img/img_bg_level_1.jpg"
             }
         }
 
