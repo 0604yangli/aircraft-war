@@ -51,7 +51,7 @@ EntityBase {
       // get the entityType of the colliding entity
       var collidingType = otherEntity.entityType
 
-      if(collidingType === "plane" || collidingType === "bullet") {
+      if(collidingType === "planeHero" || collidingType === "planeEnemy") {
           boomanimation.start();
           entity.removeEntity();
           return;

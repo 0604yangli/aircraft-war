@@ -4,37 +4,37 @@ import Felgo 3.0
 import "entities"
 
 PlaneEnemy {
-    property int plane_enemy1s: 0
+    property int planeEnemys: 0
     // maximum number of balloons
-    property int plane_enemy1sMax : 5
+    property int planeEnemysMax : 5
 
-    id: plane_enemy1
-    objectName: "plane_enemy1"
+    id: planeEnemy
+    objectName: "planeEnemy"
 
     // starts the game
     function start() {
-        spawnPlane_enemy1.start();
+        spawnPlane_enemy.start();
     }
 
     // clear all plane_enemy1s and reset properties to start values
     function reset() {
         entityManager.removeEntitiesByFilter(["plane"])
-        plane_enemy1s = 0
+        planeEnemys = 0
     }
 
     // create plane_enemy1
     Timer {
-        id: spawnPlane_enemy1
+        id: spawnPlane_enemy
         interval: 5000 // milliseconds
         repeat: true
         triggeredOnStart: false
         onTriggered: {
             // after every 2s we create a new plane
             entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/PlaneEnemy.qml"));
-            plane_enemy1s++;
+            planeEnemys++;
 
             // if the maximum number of balloons is reached, we stop the timer and therefore the balloon creation
-            if(plane_enemy1s === plane_enemy1sMax) {
+            if(planeEnemys === planeEnemysMax) {
                 // delete all plane enemy eneities
                 reset();
                 stop();
@@ -43,5 +43,5 @@ PlaneEnemy {
     }
 
     // It is forbidden to automatically fire bullets from statically created enemy plane
-    Component.onCompleted: plane_enemy1.bulletshoot.stop();
+    Component.onCompleted: planeEnemy.bulletshoot.stop();
 }

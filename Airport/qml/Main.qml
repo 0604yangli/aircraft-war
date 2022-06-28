@@ -100,6 +100,37 @@ GameWindow {
             visible: false
         }
 
+//        Wall {
+//            id: border_bottom
+
+//            height: 1
+//            anchors {
+//                left: parent.left
+//                right: parent.right
+//                bottom: parent.bottom
+//            }
+//        }
+
+        Wall {
+            id: border_left
+            width: 1
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                left: parent.left
+            }
+        }
+
+        Wall {
+            id: border_right
+            width: 1
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                right: parent.right
+            }
+        }
+
         focus: true
         // forward the input keys to plane_hero
         Keys.forwardTo: [level.plane_hero2.controller]

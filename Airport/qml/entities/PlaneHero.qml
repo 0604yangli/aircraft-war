@@ -12,7 +12,7 @@ import Felgo 3.0
 EntityBase {
     id: plane
     // the enityId should be set by the level file!
-    entityType: "plane"
+    entityType: "planeHero"
 
     property alias inputActionsToKeyCode: twoAxisController.inputActionsToKeyCode
     property alias image: image
@@ -93,9 +93,9 @@ EntityBase {
             var collidingType = component.entityType
 
 
-            if(collidingType === "plane" || collidingType === "bullet") {
+            if(collidingType === "planeEnemy" || collidingType === "bullet") {
                 boomflag++;
-                if(boomflag === 3){
+                if(boomflag === 5){
                     plane.removeEntity();
                     boomflag = 0;
                     console.log("Game over")

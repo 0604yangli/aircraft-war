@@ -110,6 +110,7 @@ DISTFILES += \
     qml/Timers.qml \
     qml/entities/Bullet.qml \
     qml/entities/PlaneEnemy.qml \
+    qml/entities/Wall.qml \
     qml/parts/Buttons.qml \
     qml/parts/GameBackground.qml \
     qml/parts/GameTitle.qml \
