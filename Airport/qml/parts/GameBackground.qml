@@ -12,6 +12,12 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
 Item {
+    property var bg1: "../../assets/img/img_bg_level_1.jpg"
+    property var bg2: "../../assets/img/img_bg_level_2.jpg"
+    property var bg3: "../../assets/img/img_bg_level_3.jpg"
+    property var bg4: "../../assets/img/img_bg_level_4.jpg"
+    property var bg5: "../../assets/img/img_bg_level_5.jpg"
+
     height: parent.height
     width: parent.width
 
@@ -35,7 +41,8 @@ Item {
             id: ima
             Image {
                 id: backimage
-                source: "../../assets/img/img_bg_level_5.jpg"
+//                source: "../../assets/img/img_bg_level_5.jpg"
+                source: bg2
             }
         }
 

@@ -13,7 +13,7 @@ Item{
         spacing: 5
         Image{
             id: titleIcon
-            source: "../../assets/img/hero2.png"
+            source: "../../assets/img/game.ico"
         }
 
         Text{

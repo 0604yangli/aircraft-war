@@ -114,7 +114,8 @@ DISTFILES += \
     qml/parts/Buttons.qml \
     qml/parts/GameBackground.qml \
     qml/parts/GameTitle.qml \
-    qml/parts/Labels.qml
+    qml/parts/Labels.qml \
+    qml/parts/PlaneBombAnimation.qml
 
 
 HEADERS +=

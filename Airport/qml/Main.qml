@@ -37,7 +37,6 @@ GameWindow {
         width: 512
         height: 768
 
-
         // background image
         GameBackground {
             id: gamebackground
@@ -67,7 +66,7 @@ GameWindow {
 
                 // game start timing
                 timers.timer_1.start();
-                planeEnemy1.start();
+                planeEnemy.start();
 
                 // background start slidering
                 gamebackground.start();
@@ -96,7 +95,7 @@ GameWindow {
         }
 
         PlaneEnemy1{
-            id: planeEnemy1
+            id: planeEnemy
             visible: false
         }
 
@@ -170,7 +169,7 @@ GameWindow {
                 focus: true
             }
             PropertyChanges {
-                target: planeEnemy1
+                target: planeEnemy
                 visible: false
 
             }

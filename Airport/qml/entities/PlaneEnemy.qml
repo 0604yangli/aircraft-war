@@ -8,6 +8,7 @@
 ******************************************************************/
 import QtQuick 2.0
 import Felgo 3.0
+import "../parts"
 
 EntityBase {
     id: plane
@@ -30,10 +31,11 @@ EntityBase {
         var mapped = mapToItem(world.debugDraw, x, y)
         console.debug("planeEnemy.x world:", mapped.x)
 
+
+        // Enemy plane appear randomly on the x-axis
         x = utils.generateRandomValueBetween(70,scene.width - 70)
         y = 0;
     }
-
 
     Image {
         id: image
@@ -49,10 +51,13 @@ EntityBase {
             // the +30 might have to be adapted if the size of the rocket is changed
             Item {x: image.width/2 - 70}
         ]
+        PlaneBombAnimation{
+            id: planebombAnimation
+        }
 
     }
     NumberAnimation {
-        id: planeEnemy1going
+        id: planeEnemygoing
         target: plane
         property: "y"
         from: -30
@@ -89,11 +94,11 @@ EntityBase {
         // this is applied every physics update tick
         force: Qt.point(twoAxisController.yAxis*forwardForce, twoAxisController.xAxis*forwardForce)
 
-        Component.onCompleted: {
-            console.debug("planeEnemy.physics.x:", x)
-            var mapped = mapToItem(world.debugDraw, x, y)
-            console.debug("planeEnemy.physics.x world:", mapped.x)
-        }
+//        Component.onCompleted: {
+//            console.debug("planeEnemy.physics.x:", x)
+//            var mapped = mapToItem(world.debugDraw, x, y)
+//            console.debug("planeEnemy.physics.x world:", mapped.x)
+//        }
 
         property int boomflag: 0
         fixture.onBeginContact: {
@@ -105,9 +110,11 @@ EntityBase {
             if(collidingType === "planeHero" || collidingType === "bullet") {
                 boomflag++;
                 if(boomflag === 5){
-                    plane.removeEntity();
+                    planebombAnimation.bomb.start();
+//                    plane.removeEntity();
                     boomflag = 0;
                 }
+
                 return
             }
             //var

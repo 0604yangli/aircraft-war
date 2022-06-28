@@ -52,7 +52,6 @@ EntityBase {
       var collidingType = otherEntity.entityType
 
       if(collidingType === "planeHero" || collidingType === "planeEnemy") {
-          boomanimation.start();
           entity.removeEntity();
           return;
       }
@@ -98,17 +97,4 @@ EntityBase {
     boxCollider.body.applyLinearImpulse(localForward, boxCollider.body.getWorldCenter())
   }
 
-  Image {
-      id: boom
-      source: "../../assets/img/bomb-1.png"
-      visible: false
-  }
-
-  PropertyAnimation{
-      id: boomanimation
-      target: boom
-      property: "source"
-      to: "../../assets/img/bomb-2.png"
-      duration: 3000
-  }
 }
