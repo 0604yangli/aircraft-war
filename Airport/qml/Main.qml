@@ -10,6 +10,7 @@
 import Felgo 3.0
 import QtQuick 2.0
 import "parts"
+import "entities"
 
 GameWindow {
     id: window
@@ -66,7 +67,6 @@ GameWindow {
 
                 // game start timing
                 timers.timer_1.start();
-//                timers.plane_enemy1.start();
                 planeEnemy1.start();
 
                 // background start slidering
@@ -97,6 +97,7 @@ GameWindow {
 
         PlaneEnemy1{
             id: planeEnemy1
+            visible: false
         }
 
         focus: true

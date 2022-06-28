@@ -98,6 +98,8 @@ EntityBase {
                 if(boomflag === 3){
                     plane.removeEntity();
                     boomflag = 0;
+                    console.log("Game over")
+                    // codes ...
                 }
                 return
             }

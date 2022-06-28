@@ -18,26 +18,30 @@ PlaneEnemy {
 
     // clear all plane_enemy1s and reset properties to start values
     function reset() {
-        entityManager.removeEntitiesByFilter(["plane_enemy1"])
+        entityManager.removeEntitiesByFilter(["plane"])
         plane_enemy1s = 0
     }
 
     // create plane_enemy1
     Timer {
         id: spawnPlane_enemy1
-        interval: 2000 // milliseconds
+        interval: 5000 // milliseconds
         repeat: true
         triggeredOnStart: false
         onTriggered: {
             // after every 2s we create a new plane
             entityManager.createEntityFromUrl(Qt.resolvedUrl("entities/PlaneEnemy.qml"));
             plane_enemy1s++;
-//            autoFire();
 
             // if the maximum number of balloons is reached, we stop the timer and therefore the balloon creation
             if(plane_enemy1s === plane_enemy1sMax) {
+                // delete all plane enemy eneities
+                reset();
                 stop();
             }
         }
     }
+
+    // It is forbidden to automatically fire bullets from statically created enemy plane
+    Component.onCompleted: plane_enemy1.bulletshoot.stop();
 }
