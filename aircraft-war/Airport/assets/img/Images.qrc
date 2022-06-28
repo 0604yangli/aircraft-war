@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>bomb.wav</file>
+        <file>bomb-6.png</file>
+    </qresource>
+</RCC>
