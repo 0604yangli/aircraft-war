@@ -1,10 +1,8 @@
 ﻿/***************************************
-
     name:       yangli
     student ID: 2020051615074
     effort:     Main.qml
-    time:       2022-06-23
-
+    time:       2022-06-29
 ****************************************/
 
 import Felgo 3.0
@@ -20,14 +18,6 @@ GameWindow {
     screenHeight: 768
 
     activeScene: scene
-
-    // You get free licenseKeys from https://felgo.com/licenseKey
-    // With a licenseKey you can:
-    //  * Publish your games & apps for the app stores
-    //  * Remove the Felgo Splash Screen or set a custom one (available with the Pro Licenses)
-    //  * Add plugins to monetize, analyze & improve your apps (available with the Pro Licenses)
-    //licenseKey: "<generate one from https://felgo.com/licenseKey>"
-
     // for creating and destroying entities at runtime (bullets)
     EntityManager {
         id: entityManager
@@ -38,6 +28,7 @@ GameWindow {
         id: scene
         width: 512
         height: 768
+
         BackgroundImage{
             source: "../assets/img/img_bg_level_1.jpg"
         }
@@ -74,7 +65,11 @@ GameWindow {
         Buttons {
             id: buttons
             maininterfaceButton.onClicked: {
-                timers.timer_1.stop();
+                console.log("clicked the maininterface button");
+                timer.stop();
+                // save score to rank list
+                rank.scale = labels.score
+
                 labels.score = 0;
                 labels.time = 0;
                 level.reset();
@@ -82,15 +77,16 @@ GameWindow {
             }
             restartButton.onClicked: {
                 console.log("clicked the replay button");
+                timer.stop();
+                // save score to rank list
+                rank.scale = labels.score
 
-                timers.timer_1.stop();
                 labels.score = 0;
                 labels.time = 0;
                 // game restart timing
-                timers.timer_1.start();
+                timer.start();
                 level.reset();
                 level.start();
-
                 // background start slidering
                 gamebackground.start();
                 window.state = "playgame"
@@ -99,19 +95,16 @@ GameWindow {
             // response event after clicking the playbutton
             playButton.onClicked: {
                 console.log("clicked the play button");
-
-                timers.timer_1.stop();
+                timer.stop();
                 labels.score = 0;
                 labels.time = 0;
                 // game start timing
-                timers.timer_1.start();
+                timer.start();
                 level.reset();
                 level.start();
-
                 // background start slidering
                 gamebackground.start();
                 window.state = "playgame"
-
             }
 
             // response event after clicking the practicebutton
@@ -135,15 +128,7 @@ GameWindow {
             id: level
         }
 
-//        Wall {
-//            id: border_bottom
-//            height: 1
-//            anchors {
-//                left: parent.left
-//                right: parent.right
-//                bottom: parent.bottom
-//            }
-//        }
+        // make walls for the left and right sides
         Wall {
             id: border_left
             width: 1
@@ -163,22 +148,26 @@ GameWindow {
             }
         }
 
-        focus: true
-//         forward the input keys to plane_hero
-        Keys.forwardTo: [level.controller]
+        //        focus: true
+        //        //         forward the input keys to plane_hero
+        //        Keys.forwardTo: [level.controller]
     }
 
+    // initial interface
     state: "initial"
-
-    Timers{
-        id: timers
-
-        timer_1.onTriggered: {
+    // time the game after it starts. The game lasts 120s
+    Timer{
+        id:timer
+        interval: 1000
+        repeat: true
+        running: false
+        triggeredOnStart: false
+        onTriggered: {
             labels.time += 1;
-            if (labels.time === 12){
+            if (labels.time === 100){
                 window.state = "gameover";
                 level.reset();
-                timer_1.stop();
+                timer.stop();
             }
         }
     }
@@ -189,8 +178,10 @@ GameWindow {
             name: "initial"
             PropertyChanges { target: labels;            visible: false}
             PropertyChanges { target: gamename;          visible: true }
+            PropertyChanges { target: rank;            visible: false}
             PropertyChanges { target: buttons;           visible: true }
-            PropertyChanges { target: buttons.maininterface_and_restart;           visible: false }
+            PropertyChanges { target: buttons.restartButton;           visible: false }
+            PropertyChanges { target: buttons.maininterfaceButton;           visible: false }
         },
 
         // play game begin
@@ -198,19 +189,20 @@ GameWindow {
             name: "playgame"
             PropertyChanges { target: gamebackground;                   visible: true }
             PropertyChanges { target: labels;                   visible: true }
+            PropertyChanges { target: rank;            visible: false}
             PropertyChanges { target: gamename;                 visible: false}
             PropertyChanges { target: buttons.playButton;       visible: false}
             PropertyChanges { target: buttons.practiceButton;   visible: false}
             PropertyChanges { target: buttons.rankButton;       visible: false}
             PropertyChanges { target: buttons.aboutButton;      visible: false}
-            PropertyChanges { target: buttons.maininterface_and_restart;           visible: false }
+            PropertyChanges { target: buttons.restartButton;           visible: false }
+            PropertyChanges { target: buttons.maininterfaceButton;           visible: false }
         },
 
         // rank list
         State {
             name: "ranklist"
             PropertyChanges { target: rank;                 visible: true }
-            PropertyChanges { target: labels;                 visible: false }
             PropertyChanges { target: gamebackground;                   visible: false }
             PropertyChanges { target: labels;                   visible: false }
             PropertyChanges { target: gamename;                 visible: false}
@@ -218,7 +210,8 @@ GameWindow {
             PropertyChanges { target: buttons.practiceButton;   visible: false}
             PropertyChanges { target: buttons.rankButton;       visible: false}
             PropertyChanges { target: buttons.aboutButton;      visible: false}
-            PropertyChanges { target: buttons.maininterface_and_restart;           visible: false }
+            PropertyChanges { target: buttons.restartButton;           visible: false }
+            PropertyChanges { target: buttons.maininterfaceButton;           visible: true }
         },
         // game over
         State {
@@ -232,7 +225,8 @@ GameWindow {
             PropertyChanges { target: buttons.practiceButton;   visible: false}
             PropertyChanges { target: buttons.rankButton;       visible: false}
             PropertyChanges { target: buttons.aboutButton;      visible: false}
-            PropertyChanges { target: buttons.maininterface_and_restart;           visible: true }
+            PropertyChanges { target: buttons.restartButton;           visible: true }
+            PropertyChanges { target: buttons.maininterfaceButton;           visible: true }
         }
     ]
 }

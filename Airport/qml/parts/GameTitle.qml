@@ -1,3 +1,9 @@
+/***************************************
+    name:           yangli
+    student ID:     2020051615074
+    effort:         GameTitle.qml
+    time:           2022-06-27
+****************************************/
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0

@@ -1,10 +1,8 @@
 /***************************************
-
     name:           yangli
     student ID:     2020051615074
-    effort:         GmaeBackGround.qml
+    effort:         GameBackGround.qml
     time:           2022-06-27
-
 ****************************************/
 
 import QtQuick 2.0
@@ -42,7 +40,6 @@ Item {
             id: ima
             Image {
                 id: backimage
-//                source: "../../assets/img/img_bg_level_5.jpg"
                 source: bg2
             }
         }

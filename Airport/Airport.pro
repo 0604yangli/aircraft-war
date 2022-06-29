@@ -103,19 +103,20 @@ DISTFILES += \
     airport-picture/img_bg_level_4.jpg \
     airport-picture/img_bg_level_5.jpg \
     airport-picture/卡通软糖字体.ttf \
-    qml/Content.qml \
     \ \
-    qml/Timers.qml \
-    qml/entities/Bullet.qml \
-    qml/entities/PlaneEnemy.qml \
+    qml/entities/Boss.qml \
+    qml/entities/BulletEnemy1.qml \
+    qml/entities/BulletEnemy2.qml \
+    qml/entities/BulletHero.qml \
+    qml/entities/PlaneEnemy1.qml \
+    qml/entities/PlaneEnemy2.qml \
     qml/entities/Wall.qml \
     qml/interfaces/GameOver.qml \
     qml/parts/Buttons.qml \
     qml/parts/GameBackground.qml \
     qml/parts/GameTitle.qml \
     qml/parts/Labels.qml \
-    qml/parts/PlaneBombAnimation.qml \
-    qml/planes/Boss.qml
+    qml/parts/PlaneBombAnimation.qml
 
 
 HEADERS +=

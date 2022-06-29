@@ -1,18 +1,18 @@
 /*****************************************************************
     name:           yangli        zhuyuhao      qinhaiguo
     student ID:     2020051615074 2020051615059 2020051615089
-    effort:         PlaneHero.qml
-                    Creating Plane Hero
+    effort:         PlaneEnemy1.qml
+                    Creating Plane Enemy1
     time:           2022-06-29
 ******************************************************************/
 import QtQuick 2.0
 import Felgo 3.0
+import "../parts"
 
 EntityBase {
     id: plane
     // the enityId should be set by the level file!
-    entityType: "planeHero"
-    focus: true
+    entityType: "planeEnemy"
 
     property alias inputActionsToKeyCode: twoAxisController.inputActionsToKeyCode
     property alias image: image
@@ -22,21 +22,15 @@ EntityBase {
 
     readonly property real forwardForce: 1000 * world.pixelsPerMeter
 
-    x: 258
-    y: 550
-    // rotation in degrees clockwise
-    rotation: -90
-
-    inputActionsToKeyCode: {
-        "up": Qt.Key_W,
-        "down": Qt.Key_S,
-        "left": Qt.Key_A,
-        "right": Qt.Key_D,
+    Component.onCompleted: {
+        // Enemy plane appear randomly on the x-axis
+        x = utils.generateRandomValueBetween(70,scene.width - 70)
+        y = 0;
     }
 
     Image {
         id: image
-        source: "../../assets/img/hero2.png"
+        source: "../../assets/img/img-plane_3.png"
 
         anchors.centerIn: parent
         width: boxCollider.width
@@ -46,35 +40,43 @@ EntityBase {
             // this imagePoint can be used for creation of the bullet
             // it must be far enough in front of the p;plane that they don't collide upon creation
             // the +30 might have to be adapted if the size of the rocket is changed
-            Item {x: image.width/2 + 30}
+            Item {x: image.width/2 - 70}
         ]
+        PlaneBombAnimation{
+            id: planebombAnimation
+            visible: false
+            bomb.running: false
+        }
 
+    }
+    NumberAnimation {
+        id: planeEnemygoing
+        target: plane
+        property: "y"
+        from: -30
+        to: 800
+        running: true
+        duration: 10000
     }
 
     // this is used as input for the BoxCollider force & torque properties
     TwoAxisController {
         id: twoAxisController
-
-        // call the logic function when an input press (possibly the fire event) is received
-        onInputActionPressed: handleInputAction(actionName)
     }
 
     BoxCollider {
         id: boxCollider
-
         // the image and the physics will use this size; this is important as it specifies the mass of the body! it is in respect to the world size
-        width: 60
-        height: 100
-        anchors.centerIn: parent
+        width: 90
+        height: 85
 
-        density: 0.004
-        friction: 0.3
+        anchors.centerIn: parent
+        density: 0.008
+        friction: 0.5
         restitution: 0.5
         body.bullet: true
         body.linearDamping: 5
         body.angularDamping: 15
-
-
 
         // do not change rotation
         body.fixedRotation: true
@@ -82,6 +84,7 @@ EntityBase {
         // this is applied every physics update tick
         force: Qt.point(twoAxisController.yAxis*forwardForce, twoAxisController.xAxis*forwardForce)
 
+        // number of hits
         property int bombflag: 0
         fixture.onBeginContact: {
             var fixture = other
@@ -89,36 +92,54 @@ EntityBase {
             var component = other.getBody().target
             var collidingType = component.entityType
 
-            if(collidingType === "planeEnemy" || collidingType === "bullet") {
+            if(collidingType === "planeHero" || collidingType === "bulletHero") {
                 bombflag++;
+                // hit the plane five times and it will explode
                 if(bombflag === 5){
                     // bomb animation
                     planebombAnimation.visible = true;
                     planebombAnimation.bomb.start();
 
-                    plane.removeEntity();
-                    bombflag = 0;
+                    // remove the plane
+                    removePlanetime.start();
+                    labels.score += 5;
+
+                    // prevent repeated scoring by counting to 5 times during bomb
+                    bombflag = 10;
+                    return
                 }
-                return
+            }
+        }
+
+        Timer {
+            id: removePlanetime
+            interval: 1400
+            running: false
+            repeat: false
+            triggeredOnStart: false
+            // remove the plane after 1.4s
+            onTriggered: {
+                plane.removeEntity()
+                console.debug("remove plane enemy1")
             }
         }
     }
     Timer {
         id: bulletshoot
-        interval: 200 // milliseconds
+        interval: 3300 // milliseconds
         repeat: true
         running: true
         triggeredOnStart: true
         onTriggered: {
             plane.autoFire();
+            // if the maximum number of balloons is reached, we stop the timer and therefore the balloon creation
+            console.log("planeenemy shoot");
         }
     }
 
-    // plane hero auto fire
     function autoFire() {
-        var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
+        var imagePointInWorldCoordinates = mapToItem(scene,image.imagePoints[0].x, image.imagePoints[0].y)
         // create the bullet at the specified position with the rotation of the plane that fires it
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("BulletHero.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation, "visible" : true})
+        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("BulletEnemy.qml"), {"x": imagePointInWorldCoordinates.x + 25, "y": imagePointInWorldCoordinates.y + 80, "rotation": plane.rotation + 90, "visible" : true})
     }
-
 }

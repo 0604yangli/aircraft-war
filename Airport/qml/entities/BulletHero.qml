@@ -1,10 +1,9 @@
 /*****************************************************************
-
     name:           yangli        zhuyuhao      qinhaiguo
     student ID:     2020051615074 2020051615059 2020051615089
-    effort:         Planes.qml
-    time:           2022-06-28
-
+    effort:         BulletHero.qml
+                    Bullets used by plane hero
+    time:           2022-06-29
 ******************************************************************/
 
 import QtQuick 2.0
@@ -12,14 +11,11 @@ import Felgo 3.0
 
 EntityBase {
   id: entity
-  entityType: "bullet"
+  entityType: "bulletHero"
 
   Component.onCompleted: applyForwardImpulse();
 
   property alias image: image
-  property real angleDeg
-
-  rotation: angleDeg
 
   BoxCollider {
     id: boxCollider
@@ -48,7 +44,7 @@ EntityBase {
       // get the entityType of the colliding entity
       var collidingType = otherEntity.entityType
 
-      if(collidingType === "planeHero" || collidingType === "planeEnemy") {
+      if(collidingType === "planeEnemy" || collidingType === "planeBoss" || collidingType === "bullet") {
           entity.removeEntity();
           return;
       }
@@ -57,22 +53,6 @@ EntityBase {
       if(otherEntity === lastWall) {
         return;
       }
-
-      lastWall = otherEntity
-
-      //apply law of reflection, all calculations in degrees
-      var normalAngle = 180 / Math.PI * Math.atan2(contactNormal.y, contactNormal.x)
-      var angleDiff = normalAngle - entity.rotation
-      var newAngle = entity.rotation + 2 * angleDiff + 180
-
-      // manually set the entity rotation, because it is the target and its rotation will be used for the physics body
-
-      entity.rotation = newAngle
-
-      // it's important to clear the old velocity before applying the impulse, otherwise the rocket would get faster every time it collides with a wall!
-      boxCollider.body.linearVelocity = Qt.point(0,0)
-
-      applyForwardImpulse();
     }
   }
 
@@ -84,8 +64,9 @@ EntityBase {
     height: boxCollider.height
   }
 
+    // bullet emitting speed
   function applyForwardImpulse() {
-    var power = 2500
+    var power = 2000
     var rad = entity.rotation / 180 * Math.PI
 
     //can't use body.toWorldVector() because the rotation is not instantly

@@ -1,10 +1,8 @@
 /***************************************
-
     name:           yangli
     student ID:     2020051615074
     effort:         Buttons.qml
-    time:           2022-06-23
-
+    time:           2022-06-29
 ****************************************/
 
 import Felgo 3.0
@@ -25,30 +23,35 @@ Item{
 
     anchors.fill: parent
 
-    RowLayout{
+    Item{
         id: maininterface_and_restart
-        x: 150; y: 500
-        spacing: 100
+        width: parent.width
+        height: 100
+        anchors.bottom: parent.bottom
         GameButton{
             id: maininterface
-            width: 100; height: 100
+            width: 160; height: parent.height
+            anchors.left: parent.left
+            visible: false
             opacity: 0.7
             Text{
                 text: qsTr("Return")
                 anchors.centerIn: parent
                 color: "white"
-                font.pixelSize: 18
+                font.pixelSize: 30
             }
         }
         GameButton{
             id: restart
-            width: 100; height: 100
+            width: 160; height: parent.height
+            anchors.right: parent.right
+            visible: false
             opacity: 0.7
             Text{
                 text: qsTr("Restart")
                 anchors.centerIn: parent
                 color: "white"
-                font.pixelSize: 18
+                font.pixelSize: 30
             }
         }
     }

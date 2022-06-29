@@ -1,17 +1,15 @@
 /***************************************
-
     name:           yangli
     student ID:     2020051615074
     effort:         PlaneBombAnimation
-    time:           202-06-28
-
+    time:           2022-06-28
 ****************************************/
 
 import QtQuick 2.0
 
 // bomb animation
 Item{
-    Component.onCompleted: console.log("`````bomb annimation creating");
+    Component.onCompleted: console.log("bomb annimation creating");
     property alias bomb: bomb
 
     anchors.fill: parent
@@ -24,12 +22,14 @@ Item{
     }
     SpriteSequence{
         anchors.centerIn:  parent
-        id: bombimage; width: parent.width ; height: parent.height; goalSprite: ""
+        id: bombimage;
+        width: parent.width ; height: parent.height;
+        goalSprite: ""
         Sprite{
             name: "bombstart"; source: "../../assets/img/bomb.png"
             frameCount: 1;
             frameX:88; frameY: 145
-            frameWidth: parent.width; frameHeight: parent.width; frameDuration: 500
+            frameWidth: parent.width; frameHeight: parent.width; frameDuration: 1000
             to: {"bomb2": 1}
         }
         Sprite{

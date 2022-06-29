@@ -1,25 +1,24 @@
 /*****************************************************************
-
     name:           yangli
     student ID:     2020051615074
     effort:         GameOver.qml
-    time:           2022-06-29
+                    Screen to be displayed at the end of the game
 
+    time:           2022-06-29
 ******************************************************************/
 
 import QtQuick 2.0
 import "../parts"
 
 Rectangle{
-    anchors.fill: parent
     visible: false
     color: "grey"
     opacity: 0.5
-
+    anchors.fill: parent
     Text {
-        id: gameover
         anchors.centerIn: parent
-        text: "Game Over !"
-        font.pixelSize: 30
+        text: "Game Over!\nYour score : " + labels.score
+        color: "red"
+        font.pixelSize: 38
     }
 }

@@ -1,16 +1,16 @@
 /*****************************************************************
-
     name:           yangli
     student ID:     2020051615074
     effort:         RankList.qml
     time:           2022-06-29
-
 ******************************************************************/
 
 import QtQuick 2.0
 import "../parts"
 
 Rectangle{
+    property int score: 0
+
     anchors.fill: parent
     visible: false
     color: "grey"
@@ -19,12 +19,7 @@ Rectangle{
         width: parent.width
         height: parent.height
         spacing: 5
-        model: ListModel{
-            id: lm
-            Component.onCompleted: {
-                lm.append({"score" : label.score});
-            }
-        }
+        model: 1
         delegate: Rectangle{
             width: parent.width
             height: 30
@@ -36,8 +31,4 @@ Rectangle{
         }
     }
 
-    Labels{
-        id: label
-        visible: false
-    }
 }
