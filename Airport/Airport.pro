@@ -105,17 +105,17 @@ DISTFILES += \
     airport-picture/卡通软糖字体.ttf \
     qml/Content.qml \
     \ \
-    qml/Level.qml \
-    qml/PlaneEnemy1.qml \
     qml/Timers.qml \
     qml/entities/Bullet.qml \
     qml/entities/PlaneEnemy.qml \
     qml/entities/Wall.qml \
+    qml/interfaces/GameOver.qml \
     qml/parts/Buttons.qml \
     qml/parts/GameBackground.qml \
     qml/parts/GameTitle.qml \
     qml/parts/Labels.qml \
-    qml/parts/PlaneBombAnimation.qml
+    qml/parts/PlaneBombAnimation.qml \
+    qml/planes/Boss.qml
 
 
 HEADERS +=

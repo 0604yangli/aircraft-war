@@ -53,6 +53,8 @@ EntityBase {
         ]
         PlaneBombAnimation{
             id: planebombAnimation
+            visible: false
+            bomb.running: false
         }
 
     }
@@ -94,11 +96,11 @@ EntityBase {
         // this is applied every physics update tick
         force: Qt.point(twoAxisController.yAxis*forwardForce, twoAxisController.xAxis*forwardForce)
 
-//        Component.onCompleted: {
-//            console.debug("planeEnemy.physics.x:", x)
-//            var mapped = mapToItem(world.debugDraw, x, y)
-//            console.debug("planeEnemy.physics.x world:", mapped.x)
-//        }
+        //        Component.onCompleted: {
+        //            console.debug("planeEnemy.physics.x:", x)
+        //            var mapped = mapToItem(world.debugDraw, x, y)
+        //            console.debug("planeEnemy.physics.x world:", mapped.x)
+        //        }
 
         property int boomflag: 0
         fixture.onBeginContact: {
@@ -110,17 +112,30 @@ EntityBase {
             if(collidingType === "planeHero" || collidingType === "bullet") {
                 boomflag++;
                 if(boomflag === 5){
+                    // bomb animation
+                    planebombAnimation.visible = true;
                     planebombAnimation.bomb.start();
-//                    plane.removeEntity();
-                    boomflag = 0;
-                }
 
-                return
+                    // remove the plane
+                    removePlanetime.start();
+                    labels.score += 5;
+                    boomflag = 0;
+                    return
+                }
             }
-            //var
-            console.debug("planeEnemy contact with: ", other, body, component)
-            console.debug("planeEnemy collided entity type:", collidingType)
-            console.debug("planeEnemy contactNormal:", contactNormal, "x:", contactNormal.x, "y:", contactNormal.y)
+        }
+
+        Timer {
+            id: removePlanetime
+            interval: 1600
+            running: false
+            repeat: false
+            triggeredOnStart: false
+            // remove the plane after 1.4s
+            onTriggered: {
+                plane.removeEntity()
+                console.debug("!!!remove plane")
+            }
         }
     }
     Timer {
@@ -130,7 +145,7 @@ EntityBase {
         running: true
         triggeredOnStart: true
         onTriggered: {
-            plane.autoFire();
+//            plane.autoFire();
             // if the maximum number of balloons is reached, we stop the timer and therefore the balloon creation
             console.log("shoot");
         }

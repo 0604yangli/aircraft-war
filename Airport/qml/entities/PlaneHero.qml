@@ -13,6 +13,7 @@ EntityBase {
     id: plane
     // the enityId should be set by the level file!
     entityType: "planeHero"
+    focus: true
 
     property alias inputActionsToKeyCode: twoAxisController.inputActionsToKeyCode
     property alias image: image
@@ -22,11 +23,17 @@ EntityBase {
 
     readonly property real forwardForce: 1000 * world.pixelsPerMeter
 
-    Component.onCompleted: {
-        console.debug("planeHero.onCompleted()")
-        console.debug("planeHero.x:", x)
-        var mapped = mapToItem(world.debugDraw, x, y)
-        console.debug("planeHero.x world:", mapped.x)
+    x: 258
+    y: 550
+    // rotation in degrees clockwise
+    rotation: -90
+
+    inputActionsToKeyCode: {
+        "up": Qt.Key_W,
+        "down": Qt.Key_S,
+        "left": Qt.Key_A,
+        "right": Qt.Key_D,
+        "fire": Qt.Key_Space
     }
 
     Image {
@@ -60,7 +67,6 @@ EntityBase {
         // the image and the physics will use this size; this is important as it specifies the mass of the body! it is in respect to the world size
         width: 60
         height: 100
-
         anchors.centerIn: parent
 
         density: 0.004
@@ -76,14 +82,6 @@ EntityBase {
 
         // this is applied every physics update tick
         force: Qt.point(twoAxisController.yAxis*forwardForce, twoAxisController.xAxis*forwardForce)
-
-
-        Component.onCompleted: {
-            console.debug("planeHero.physics.x:", x)
-            var mapped = mapToItem(world.debugDraw, x, y)
-            console.debug("planeHero.physics.x world:", mapped.x)
-        }
-
 
         property int boomflag: 0
         fixture.onBeginContact: {
@@ -103,29 +101,23 @@ EntityBase {
                 }
                 return
             }
-            //var
-            console.debug("planeHero contact with: ", other, body, component)
-            console.debug("planeHero collided entity type:", collidingType)
-
-            console.debug("planeHero contactNormal:", contactNormal, "x:", contactNormal.x, "y:", contactNormal.y)
-
         }
     }
 
     function handleInputAction(action) {
         if( action === "fire") {
             // x&y of this component are 0..
-            console.debug("creating planeHero at current position x", plane.x, "y", plane.y)
-            console.debug("image.imagePoints[0].x:", image.imagePoints[0].x, ", image.imagePoints[0].y:", image.imagePoints[0].y)
+//            console.debug("creating planeHero at current position x", plane.x, "y", plane.y)
+//            console.debug("image.imagePoints[0].x:", image.imagePoints[0].x, ", image.imagePoints[0].y:", image.imagePoints[0].y)
 
             // this is the point that we defined in Plane.qml for the bullet to spawn
             var imagePointInWorldCoordinates = mapToItem(level,image.imagePoints[0].x, image.imagePoints[0].y)
 
-            console.debug("image.imagePoints[0] = " + image.imagePoints[0]);
-            console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
+//            console.debug("image.imagePoints[0] = " + image.imagePoints[0]);
+//            console.debug("imagePointInWorldCoordinates x", imagePointInWorldCoordinates.x, " y:", imagePointInWorldCoordinates.y)
 
             // create the bullet at the specified position with the rotation of the plane that fires it
-            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane_hero2.rotation})
+            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("Bullet.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation})
         }
     }
 }

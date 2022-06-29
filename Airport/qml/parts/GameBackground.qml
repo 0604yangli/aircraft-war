@@ -21,6 +21,7 @@ Item {
     height: parent.height
     width: parent.width
 
+    focus: false
     // backSlider beginning
     function start() {
         backSlider.start();

@@ -13,6 +13,10 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.0
 
 Item{
+    property alias maininterface_and_restart: maininterface_and_restart
+    property alias maininterfaceButton: maininterface
+    property alias restartButton: restart
+
     property alias playButton: play
     property alias practiceButton: practice
     property alias rankButton: rank
@@ -20,6 +24,34 @@ Item{
     property alias audioButton: audio
 
     anchors.fill: parent
+
+    RowLayout{
+        id: maininterface_and_restart
+        x: 150; y: 500
+        spacing: 100
+        GameButton{
+            id: maininterface
+            width: 100; height: 100
+            opacity: 0.7
+            Text{
+                text: qsTr("Return")
+                anchors.centerIn: parent
+                color: "white"
+                font.pixelSize: 18
+            }
+        }
+        GameButton{
+            id: restart
+            width: 100; height: 100
+            opacity: 0.7
+            Text{
+                text: qsTr("Restart")
+                anchors.centerIn: parent
+                color: "white"
+                font.pixelSize: 18
+            }
+        }
+    }
 
     Column{
         width: 200; height: 350; y: 360

@@ -14,10 +14,7 @@ EntityBase {
   id: entity
   entityType: "bullet"
 
-  Component.onCompleted: {
-      console.debug("Bullet.onCompleted, width:", width);
-      applyForwardImpulse();
-  }
+  Component.onCompleted: applyForwardImpulse();
 
   property alias image: image
   property real angleDeg
@@ -70,7 +67,6 @@ EntityBase {
 
       // manually set the entity rotation, because it is the target and its rotation will be used for the physics body
 
-      console.debug("Bullet.roration:" + newAngle)
       entity.rotation = newAngle
 
       // it's important to clear the old velocity before applying the impulse, otherwise the rocket would get faster every time it collides with a wall!
@@ -89,7 +85,7 @@ EntityBase {
   }
 
   function applyForwardImpulse() {
-    var power = 1500
+    var power = 2500
     var rad = entity.rotation / 180 * Math.PI
 
     //can't use body.toWorldVector() because the rotation is not instantly
