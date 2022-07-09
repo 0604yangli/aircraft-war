@@ -2,8 +2,8 @@
     name:           yangli
     student ID:     2020051615074
     effort:         Planes.qml
-                    Dynamic creation of various plane
-    time:           2022-06-29
+                    Dynamic creation of various planes
+    time:           2022-07-09
 ****************************************/
 import QtQuick 2.0
 import Felgo 3.0
@@ -12,29 +12,23 @@ import "../entities"
 Item {
     id: level
     width: parent.width
-    height: parent.width
+    height: parent.height
 
+    property alias planehero: planehero
     property int planeEnemys: 0
     // maximum number of planes
     property int planeEnemysMax : 33
 
+    PlaneHero{
+        id: planehero
+        visible: false
+    }
 
     //     starts the game
     function start() {
-//        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/PlaneHero.qml"),{"inputActionsToKeyCode": {
-//                                                                "up": Qt.Key_W,
-//                                                                "down": Qt.Key_S,
-//                                                                "left": Qt.Key_A,
-//                                                                "right": Qt.Key_D,
-//                                                                "fire": Qt.Key_Space
-//                                                            }});
-
-        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/PlaneHero.qml"),{"focus":
-                                                                "true"
-                                                            });
 //        entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/PlaneHero.qml"));
-//        entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/PlaneHero.qml"),{"id": "planehero"});
-
+        planehero.visible = true;
+        // create planes timer start
         spawnPlane_enemyboss.start();
         spawnPlane_enemy1.start();
         spawnPlane_enemy2.start();
@@ -42,11 +36,12 @@ Item {
 
     // clear all plane_enemy1s and reset properties to start values
     function reset() {
+        planehero.visible = false;
         spawnPlane_enemy1.stop();
         spawnPlane_enemy2.stop();
         spawnPlane_enemyboss.stop();
         entityManager.removeEntitiesByFilter(["planeEnemy"]);
-        entityManager.removeEntitiesByFilter(["planeHero"]);
+//        entityManager.removeEntitiesByFilter(["planeHero"]);
         entityManager.removeEntitiesByFilter(["planeBoss"]);
         planeEnemys = 0;
     }
@@ -60,11 +55,10 @@ Item {
         onTriggered: {
             // after every 3s we create a new plane
             entityManager.createEntityFromUrl(Qt.resolvedUrl("../entities/PlaneEnemy1.qml"));
-            //            entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("../entities/PlaneEnemy.qml"),{"image.source": "../../assets/img/img-plane_6.png"});
             planeEnemys++;
 
             // if the maximum number of planes is reached, we stop the timer and therefore the plane creation
-            if(planeEnemys === planeEnemysMax &&  labels.time === 120) {
+            if(planeEnemys === planeEnemysMax &&  labels.time === 100) {
                 // delete all plane enemy eneities and stop all timer
                 level.reset();
             }

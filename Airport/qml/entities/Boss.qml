@@ -2,8 +2,8 @@
     name:           yangli        zhuyuhao      qinhaiguo
     student ID:     2020051615074 2020051615059 2020051615089
     effort:         Boss.qml
-                    Creating Boss Plane
-    time:           2022-06-29
+                    Entity Boss Plane
+    time:           2022-07-09
 ******************************************************************/
 import QtQuick 2.0
 import Felgo 3.0
@@ -117,9 +117,7 @@ EntityBase {
 
                     // remove the plane
                     removePlanetime.start();
-                    labels.score += 50;
-                    console.debug("labels.score = " + labels.score);
-                    bombflagboss = 50;
+                    labels.score += 20;
                     return;
                 }
             }
@@ -135,6 +133,7 @@ EntityBase {
             onTriggered: {
                 plane.removeEntity()
                 console.debug("remove plane boss")
+                stop()
             }
         }
     }

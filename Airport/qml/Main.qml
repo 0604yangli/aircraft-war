@@ -2,7 +2,7 @@
     name:       yangli
     student ID: 2020051615074
     effort:     Main.qml
-    time:       2022-06-29
+    time:           2022-07-09
 ****************************************/
 
 import Felgo 3.0
@@ -24,6 +24,7 @@ GameWindow {
         entityContainer: level
     }
 
+    //    Loader
     Scene {
         id: scene
         width: 512
@@ -61,6 +62,10 @@ GameWindow {
         GameOver{
             id: gameover
         }
+        // about game interface
+        AboutGame{
+            id: about
+        }
 
         Buttons {
             id: buttons
@@ -68,8 +73,12 @@ GameWindow {
                 console.log("clicked the maininterface button");
                 timer.stop();
                 // save score to rank list
-                rank.scale = labels.score
-
+                if (labels.score !== 0){
+                    rank.scores.push(labels.score);
+                    rank.scores.sort(function (a, b) {
+                        return a - b
+                    });
+                }
                 labels.score = 0;
                 labels.time = 0;
                 level.reset();
@@ -79,14 +88,21 @@ GameWindow {
                 console.log("clicked the replay button");
                 timer.stop();
                 // save score to rank list
-                rank.scale = labels.score
-
+                if (labels.score !== 0){
+                    rank.scores.push(labels.score);
+                    rank.scores.sort(function (a, b) {
+                        return a - b
+                    });
+                }
                 labels.score = 0;
                 labels.time = 0;
+
                 // game restart timing
                 timer.start();
+                // remove all plane enemies
                 level.reset();
                 level.start();
+
                 // background start slidering
                 gamebackground.start();
                 window.state = "playgame"
@@ -98,10 +114,13 @@ GameWindow {
                 timer.stop();
                 labels.score = 0;
                 labels.time = 0;
+
                 // game start timing
                 timer.start();
+                // remove all plane enemies
                 level.reset();
                 level.start();
+
                 // background start slidering
                 gamebackground.start();
                 window.state = "playgame"
@@ -116,16 +135,19 @@ GameWindow {
             rankButton.onClicked: {
                 console.log("clicked the rank button");
                 window.state = "ranklist"
+                rank.setdata()
             }
 
             // response event after clicking the aboutbutton
             aboutButton.onClicked: {
                 console.log("clicked the about button");
+                window.state = "aboutgame"
             }
         }
 
         Planes {
             id: level
+            z: 1
         }
 
         // make walls for the left and right sides
@@ -147,10 +169,19 @@ GameWindow {
                 right: parent.right
             }
         }
+        Wall {
+            id: border_bottom
+            width: 1
+            anchors {
+                //                top: parent.top
+                bottom: parent.bottom
+                right: parent.right
+            }
+        }
 
-        //        focus: true
-        //        //         forward the input keys to plane_hero
-        //        Keys.forwardTo: [level.controller]
+        focus: true
+        //         forward the input keys to plane_hero
+        Keys.forwardTo: [level.planehero.controller]
     }
 
     // initial interface
@@ -164,7 +195,8 @@ GameWindow {
         triggeredOnStart: false
         onTriggered: {
             labels.time += 1;
-            if (labels.time === 100){
+            //            if (labels.time === 100){
+            if (labels.time === 10){
                 window.state = "gameover";
                 level.reset();
                 timer.stop();
@@ -182,6 +214,7 @@ GameWindow {
             PropertyChanges { target: buttons;           visible: true }
             PropertyChanges { target: buttons.restartButton;           visible: false }
             PropertyChanges { target: buttons.maininterfaceButton;           visible: false }
+            PropertyChanges { target: about;                 visible: false }
         },
 
         // play game begin
@@ -197,6 +230,7 @@ GameWindow {
             PropertyChanges { target: buttons.aboutButton;      visible: false}
             PropertyChanges { target: buttons.restartButton;           visible: false }
             PropertyChanges { target: buttons.maininterfaceButton;           visible: false }
+            PropertyChanges { target: about;                 visible: false }
         },
 
         // rank list
@@ -211,14 +245,33 @@ GameWindow {
             PropertyChanges { target: buttons.rankButton;       visible: false}
             PropertyChanges { target: buttons.aboutButton;      visible: false}
             PropertyChanges { target: buttons.restartButton;           visible: false }
+            PropertyChanges { target: about;                 visible: false }
             PropertyChanges { target: buttons.maininterfaceButton;           visible: true }
         },
+
+        // about game
+        State {
+            name: "aboutgame"
+            PropertyChanges { target: about;                 visible: true }
+            PropertyChanges { target: rank;                 visible: false }
+            PropertyChanges { target: gamebackground;                   visible: false }
+            PropertyChanges { target: labels;                   visible: false }
+            PropertyChanges { target: gamename;                 visible: false}
+            PropertyChanges { target: buttons.playButton;       visible: false}
+            PropertyChanges { target: buttons.practiceButton;   visible: false}
+            PropertyChanges { target: buttons.rankButton;       visible: false}
+            PropertyChanges { target: buttons.aboutButton;      visible: false}
+            PropertyChanges { target: buttons.restartButton;           visible: false }
+            PropertyChanges { target: buttons.maininterfaceButton;           visible: true }
+        },
+
         // game over
         State {
             name: "gameover"
             PropertyChanges { target: gameover;                 visible: true }
             PropertyChanges { target: rank;                 visible: false }
             PropertyChanges { target: gamebackground;                   visible: false }
+            PropertyChanges { target: about;                 visible: false }
             PropertyChanges { target: labels;                   visible: false }
             PropertyChanges { target: gamename;                 visible: false}
             PropertyChanges { target: buttons.playButton;       visible: false}

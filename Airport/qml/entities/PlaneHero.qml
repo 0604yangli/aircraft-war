@@ -2,25 +2,33 @@
     name:           yangli        zhuyuhao      qinhaiguo
     student ID:     2020051615074 2020051615059 2020051615089
     effort:         PlaneHero.qml
-                    Creating Plane Hero
-    time:           2022-06-29
+                    Entity Plane Hero
+    time:           2022-07-09
 ******************************************************************/
 import QtQuick 2.0
 import Felgo 3.0
+import "../parts"
 
 EntityBase {
     id: plane
     // the enityId should be set by the level file!
     entityType: "planeHero"
     focus: true
+    visible: false
 
     property alias inputActionsToKeyCode: twoAxisController.inputActionsToKeyCode
     property alias image: image
+    property alias bulletshoot: bulletshoot
 
     // gets accessed to insert the input when touching the HUDController
     property alias controller: twoAxisController
 
     readonly property real forwardForce: 1000 * world.pixelsPerMeter
+
+    //    Component.onCompleted: {
+    //        focus = true
+    //        console.debug("plane hero obtain focus")
+    //    }
 
     x: 258
     y: 550
@@ -48,15 +56,19 @@ EntityBase {
             // the +30 might have to be adapted if the size of the rocket is changed
             Item {x: image.width/2 + 30}
         ]
-
     }
+    // bomb animation
+    PlaneBombAnimation{
+        id: planebombAnimation
+        visible: false
+        bomb.running: false
+    }
+
 
     // this is used as input for the BoxCollider force & torque properties
     TwoAxisController {
         id: twoAxisController
 
-        // call the logic function when an input press (possibly the fire event) is received
-        onInputActionPressed: handleInputAction(actionName)
     }
 
     BoxCollider {
@@ -73,12 +85,8 @@ EntityBase {
         body.bullet: true
         body.linearDamping: 5
         body.angularDamping: 15
-
-
-
         // do not change rotation
         body.fixedRotation: true
-
         // this is applied every physics update tick
         force: Qt.point(twoAxisController.yAxis*forwardForce, twoAxisController.xAxis*forwardForce)
 
@@ -89,28 +97,44 @@ EntityBase {
             var component = other.getBody().target
             var collidingType = component.entityType
 
-            if(collidingType === "planeEnemy" || collidingType === "bullet") {
+            if(collidingType === "planeEnemy" || collidingType === "bullet" || collidingType === "planeBoss") {
                 bombflag++;
                 if(bombflag === 5){
                     // bomb animation
                     planebombAnimation.visible = true;
                     planebombAnimation.bomb.start();
 
-                    plane.removeEntity();
-                    bombflag = 0;
+                    // remove the plane hero
+                    removePlanetime.start();
+                    return;
                 }
-                return
+            }
+        }
+
+        Timer {
+            id: removePlanetime
+            interval: 1400
+            running: false
+            repeat: false
+            triggeredOnStart: false
+            // remove the plane after 1.4s
+            onTriggered: {
+                plane.visible = false
+                console.debug("remove plane hero")
+                stop()
             }
         }
     }
+
     Timer {
         id: bulletshoot
-        interval: 200 // milliseconds
+        interval: 300 // milliseconds
         repeat: true
         running: true
         triggeredOnStart: true
         onTriggered: {
-            plane.autoFire();
+            if(plane.visible === true)
+                plane.autoFire();
         }
     }
 
@@ -120,5 +144,4 @@ EntityBase {
         // create the bullet at the specified position with the rotation of the plane that fires it
         entityManager.createEntityFromUrlWithProperties(Qt.resolvedUrl("BulletHero.qml"), {"x": imagePointInWorldCoordinates.x, "y": imagePointInWorldCoordinates.y, "rotation": plane.rotation, "visible" : true})
     }
-
 }

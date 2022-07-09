@@ -2,33 +2,54 @@
     name:           yangli
     student ID:     2020051615074
     effort:         RankList.qml
-    time:           2022-06-29
+    time:           2022-07-09
 ******************************************************************/
 
 import QtQuick 2.0
-import "../parts"
 
 Rectangle{
-    property int score: 0
+    property var scores: new Array
+    property var time: new Array
 
     anchors.fill: parent
     visible: false
     color: "grey"
     opacity: 0.5
+
+    function setdata(){
+        listModel.clear();
+        for(var i = 0; i < scores.length; i++){
+            var data = {"score": "Score : " + scores[i]};
+            console.debug("data = " + data)
+            listModel.append(data);
+        }
+    }
+
     ListView{
         width: parent.width
-        height: parent.height
-        spacing: 5
-        model: 1
-        delegate: Rectangle{
+        y: 30
+        height: parent.height - 30
+        spacing: 10
+        model: ListModel{
+            id: listModel
+        }
+
+        delegate:
+            scoredata
+
+    }
+    Component {
+        id: scoredata
+        Rectangle{
             width: parent.width
-            height: 30
+            height: 40
             Text {
                 anchors.centerIn: parent
-                text: "score       :        " + score
+                text: score
                 font.pixelSize: 30
             }
         }
     }
+
 
 }

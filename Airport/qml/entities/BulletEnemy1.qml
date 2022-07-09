@@ -3,7 +3,7 @@
     student ID:     2020051615074 2020051615059 2020051615089
     effort:         BulletEnemy1.qml
                     Bullets used by plane enemy1
-    time:           2022-06-29
+    time:           2022-07-09
 ******************************************************************/
 
 import QtQuick 2.0

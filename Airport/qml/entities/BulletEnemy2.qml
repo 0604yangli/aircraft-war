@@ -3,7 +3,7 @@
     student ID:     2020051615074 2020051615059 2020051615089
     effort:         BulletEnemy2.qml
                     Bullets used by plane enemy2
-    time:           2022-06-29
+    time:           2022-07-09
 ******************************************************************/
 
 import QtQuick 2.0
@@ -46,11 +46,6 @@ EntityBase {
 
             if(collidingType === "planeHero" || collidingType === "planeEnemy" || collidingType === "bulletHero") {
                 entity.removeEntity();
-                return;
-            }
-
-            //can't hit the same wall twice, but onBeginContact called again after rotation has changed
-            if(otherEntity === lastWall) {
                 return;
             }
         }

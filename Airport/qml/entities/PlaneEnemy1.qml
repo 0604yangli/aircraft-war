@@ -2,8 +2,8 @@
     name:           yangli        zhuyuhao      qinhaiguo
     student ID:     2020051615074 2020051615059 2020051615089
     effort:         PlaneEnemy1.qml
-                    Creating Plane Enemy1
-    time:           2022-06-29
+                    Entity Plane Enemy1
+    time:           2022-07-09
 ******************************************************************/
 import QtQuick 2.0
 import Felgo 3.0
@@ -42,6 +42,7 @@ EntityBase {
             // the +30 might have to be adapted if the size of the rocket is changed
             Item {x: image.width/2 - 70}
         ]
+        // bomb animation
         PlaneBombAnimation{
             id: planebombAnimation
             visible: false
@@ -102,10 +103,7 @@ EntityBase {
 
                     // remove the plane
                     removePlanetime.start();
-                    labels.score += 5;
-
-                    // prevent repeated scoring by counting to 5 times during bomb
-                    bombflag = 10;
+                    labels.score += 3;
                     return
                 }
             }
@@ -121,6 +119,7 @@ EntityBase {
             onTriggered: {
                 plane.removeEntity()
                 console.debug("remove plane enemy1")
+                stop()
             }
         }
     }
@@ -132,8 +131,6 @@ EntityBase {
         triggeredOnStart: true
         onTriggered: {
             plane.autoFire();
-            // if the maximum number of balloons is reached, we stop the timer and therefore the balloon creation
-            console.log("planeenemy shoot");
         }
     }
 

@@ -111,6 +111,7 @@ DISTFILES += \
     qml/entities/PlaneEnemy1.qml \
     qml/entities/PlaneEnemy2.qml \
     qml/entities/Wall.qml \
+    qml/interfaces/AboutGame.qml \
     qml/interfaces/GameOver.qml \
     qml/parts/Buttons.qml \
     qml/parts/GameBackground.qml \
