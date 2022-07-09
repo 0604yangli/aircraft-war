@@ -196,7 +196,7 @@ GameWindow {
         onTriggered: {
             labels.time += 1;
             //            if (labels.time === 100){
-            if (labels.time === 10){
+            if (labels.time === 100){
                 window.state = "gameover";
                 level.reset();
                 timer.stop();
